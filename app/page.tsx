@@ -2,9 +2,12 @@ import Link from "next/link"
 import { ExternalLink, Search, ArrowRight, Gift } from "lucide-react"
 import { siteConfig } from "@/config/site"
 import FeaturedSites from "@/components/featured-sites"
+import { debugLog } from "@/lib/debug-utils"
 
 // Helper function to get the icon component by name
 const getIconByName = (name: string) => {
+  debugLog(`Getting icon by name: ${name}`, "HomePage")
+
   switch (name) {
     case "Search":
       return <Search className="h-6 w-6" />
@@ -13,11 +16,14 @@ const getIconByName = (name: string) => {
     case "Gift":
       return <Gift className="h-6 w-6" />
     default:
+      debugLog(`Unknown icon name: ${name}`, "HomePage")
       return null
   }
 }
 
 export default function Home() {
+  debugLog("Rendering home page", "HomePage")
+
   return (
     <div className="space-y-12">
       <section className="py-12 text-center">
