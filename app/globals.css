@@ -2,12 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Base styles */
 @layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 142.1 76.2% 36.3%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 142.1 76.2% 36.3%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
   body {
     @apply bg-black text-white;
   }
-
   h1,
   h2,
   h3,
@@ -16,13 +42,11 @@
   h6 {
     @apply font-bold;
   }
-
   a {
     @apply text-green-500 hover:underline;
   }
 }
 
-/* Component styles */
 @layer components {
   .btn {
     @apply px-4 py-2 rounded-md font-medium;
@@ -49,26 +73,8 @@
   }
 }
 
-/* Custom utility styles */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
-}
-
-/* Custom styles that don't fit into layers */
-.sidebar-primary {
-  @apply bg-green-500 text-black;
-}
-
-.sidebar-primary-foreground {
-  @apply text-black;
-}
-
-.sidebar-accent {
-  @apply bg-green-500/20;
-}
-
-.sidebar-accent-foreground {
-  @apply text-green-500;
 }

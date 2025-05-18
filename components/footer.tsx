@@ -1,5 +1,5 @@
 import Link from "next/link"
-import Image from "next/image"
+import { Image } from "@/components/ui/image"
 import { siteConfig } from "@/config/site"
 
 export default function Footer() {
@@ -16,6 +16,7 @@ export default function Footer() {
                   width={32}
                   height={32}
                   className="object-contain"
+                  fallbackSrc="/placeholder.png"
                 />
               </div>
               <span className="text-xl font-bold">BetDrip</span>
