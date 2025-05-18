@@ -10,7 +10,13 @@ export default function Footer() {
           <div className="flex flex-col gap-4">
             <Link href="/" className="flex items-center gap-2">
               <div className="relative h-8 w-8">
-                <Image src="/images/dripbet-logo.png" alt="BetDrip Logo" fill className="object-contain" />
+                <Image
+                  src="/images/dripbet-logo.png"
+                  alt="BetDrip Logo"
+                  width={32}
+                  height={32}
+                  className="object-contain"
+                />
               </div>
               <span className="text-xl font-bold">BetDrip</span>
             </Link>

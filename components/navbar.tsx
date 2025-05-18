@@ -16,7 +16,14 @@ export default function Navbar() {
       <div className="container flex h-16 items-center px-4 sm:px-6">
         <Link href="/" className="flex items-center gap-2">
           <div className="relative h-8 w-8">
-            <Image src="/images/dripbet-logo.png" alt="BetDrip Logo" fill className="object-contain" />
+            {/* Use a fallback image if the logo isn't available */}
+            <Image
+              src="/images/dripbet-logo.png"
+              alt="BetDrip Logo"
+              width={32}
+              height={32}
+              className="object-contain"
+            />
           </div>
           <span className="text-xl font-bold">BetDrip</span>
         </Link>
@@ -42,7 +49,13 @@ export default function Navbar() {
             <div className="flex items-center justify-between">
               <Link href="/" className="flex items-center gap-2" onClick={() => setIsOpen(false)}>
                 <div className="relative h-8 w-8">
-                  <Image src="/images/dripbet-logo.png" alt="BetDrip Logo" fill className="object-contain" />
+                  <Image
+                    src="/images/dripbet-logo.png"
+                    alt="BetDrip Logo"
+                    width={32}
+                    height={32}
+                    className="object-contain"
+                  />
                 </div>
                 <span className="text-xl font-bold">BetDrip</span>
               </Link>
