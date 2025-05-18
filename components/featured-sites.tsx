@@ -23,7 +23,7 @@ export default function FeaturedSites() {
             <CardHeader className="p-0">
               <div className="relative h-48 w-full">
                 <Image
-                  src={imageSrc || "/placeholder.png"}
+                  src={imageSrc || "/placeholder.svg"}
                   alt={site.name}
                   width={400}
                   height={240}
