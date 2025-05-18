@@ -19,8 +19,8 @@ export default function AboutPage() {
           have access to accurate, up-to-date information about free sweepcoins opportunities across the web.
         </p>
         <p className="text-gray-300">
-          We believe in responsible gambling and providing value to our community. That's why all the information on
-          BetDrip is completely free to access, with no hidden fees or subscriptions required.
+          We believe in responsible gambling and providing value to our community. That&apos;s why all the information
+          on BetDrip is completely free to access, with no hidden fees or subscriptions required.
         </p>
       </div>
 

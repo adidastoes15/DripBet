@@ -21,7 +21,7 @@ export default function Home() {
         <div className="grid gap-6 md:grid-cols-2">
           <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6">
             <h3 className="text-xl font-bold mb-2">Stake.US</h3>
-            <p className="text-gray-400 mb-4">America's Social Casino with over 200 industry favorite games.</p>
+            <p className="text-gray-400 mb-4">America&apos;s Social Casino with over 200 industry favorite games.</p>
             <div className="text-green-500 font-bold mb-4">25,000 free sweepcoins daily</div>
             <div className="flex gap-4">
               <Link

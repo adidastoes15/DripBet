@@ -3,7 +3,7 @@ export default function ContactPage() {
     <div className="space-y-8">
       <div>
         <h1 className="text-3xl font-bold mb-2">Contact Us</h1>
-        <p className="text-gray-400">Have questions or feedback? We'd love to hear from you.</p>
+        <p className="text-gray-400">Have questions or feedback? We&apos;d love to hear from you.</p>
       </div>
 
       <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6">
