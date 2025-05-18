@@ -1,7 +1,21 @@
 import Link from "next/link"
-import { ExternalLink } from "lucide-react"
+import { ExternalLink, Search, ArrowRight, Gift } from "lucide-react"
 import { siteConfig } from "@/config/site"
 import FeaturedSites from "@/components/featured-sites"
+
+// Helper function to get the icon component by name
+const getIconByName = (name: string) => {
+  switch (name) {
+    case "Search":
+      return <Search className="h-6 w-6" />
+    case "ArrowRight":
+      return <ArrowRight className="h-6 w-6" />
+    case "Gift":
+      return <Gift className="h-6 w-6" />
+    default:
+      return null
+  }
+}
 
 export default function Home() {
   return (
@@ -29,7 +43,7 @@ export default function Home() {
         <div className="grid gap-8 md:grid-cols-3">
           {siteConfig.howItWorks.map((item, index) => (
             <div key={index} className="bg-zinc-900 border border-zinc-800 rounded-lg p-6 text-center">
-              <div className="flex justify-center mb-4 text-green-500">{item.icon}</div>
+              <div className="flex justify-center mb-4 text-green-500">{getIconByName(item.iconName)}</div>
               <h3 className="text-xl font-bold mb-2">{item.title}</h3>
               <p className="text-gray-400">{item.description}</p>
             </div>

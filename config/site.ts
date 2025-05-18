@@ -1,5 +1,4 @@
-import { Search, Gift, ArrowRight } from "lucide-react"
-
+// Define the site configuration
 export const siteConfig = {
   name: "BetDrip",
   description: "Your resource for free daily sweepcoins from online gambling websites",
@@ -23,17 +22,17 @@ export const siteConfig = {
   ],
   howItWorks: [
     {
-      icon: <Search className="h-6 w-6" />,
+      iconName: "Search", // Use string names instead of JSX
       title: "Find a Site",
       description: "Browse our collection of online gambling sites offering free sweepcoins.",
     },
     {
-      icon: <ArrowRight className="h-6 w-6" />,
+      iconName: "ArrowRight", // Use string names instead of JSX
       title: "Follow Instructions",
       description: "Click through to the site and follow our simple instructions to claim your coins.",
     },
     {
-      icon: <Gift className="h-6 w-6" />,
+      iconName: "Gift", // Use string names instead of JSX
       title: "Claim Daily",
       description: "Return daily to claim more free sweepcoins and maximize your gaming experience.",
     },
@@ -87,3 +86,6 @@ export const siteConfig = {
     },
   ],
 }
+
+// Type for the site configuration
+export type SiteConfig = typeof siteConfig
