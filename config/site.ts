@@ -83,6 +83,27 @@ export const siteConfig = {
         "Participate in their weekly tournaments for additional coin rewards",
         "Refer friends to earn up to 5,000 bonus sweepcoins per referral",
       ],
+   {
+      id: "CrownCoins Casino",
+      name: "CrownCoins Casino",
+      description: "Popular social casino with slots, blackjack, and more.",
+      fullDescription:
+        "CrownCoins Casino is a free-to-play, sweepstakes‐style social casino launched in 2023 by Sunflower Limited, offering a massive collection of Vegas-style slots—including progressive jackpots, mini-games, and exclusive releases—without risking real money  ￼ ￼. Players earn and use two virtual currencies (Crown Coins for play and Sweeps Coins redeemable for cash), enjoy daily login and welcome bonuses, and operate under U.S. sweepstakes law for a legally compliant, no-purchase-necessary experience.",
+      image: "/images/sites/CrownCoins.png",
+      url: "https://crowncoinscasino.com/?utm_campaign=2aced4e1-ed89-4166-9e58-2eeba329bd8b&utm_source=friends",
+      dailyCoins: "$1",
+      lastUpdated: "May 5, 2025",
+      claimSteps: [
+        "Create a free account on CrownCoins",
+        "Verify your email address",
+        "Log in daily to claim your free $1 sweepcoins",
+        "Optional: Follow CrownCoins on social media for additional bonus opportunities",
+      ],
+      bonusTips: [
+        "Check their Facebook page everyday for bonus code opportunities",
+        "Participate in their weekly tournaments for additional coin rewards",
+        "Refer friends to earn sweepcoins for each referral",
+      ],
     },
   ],
 }
