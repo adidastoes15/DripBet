@@ -1,39 +1,50 @@
+"use client"
+
+import { useState, useEffect } from "react"
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import { ExternalLink } from "lucide-react"
 import { siteConfig } from "@/config/site"
 import { ImageCarousel } from "@/components/image-carousel"
-import { debugLog } from "@/lib/debug-utils"
 
 export default function SitePage({ params }: { params: { id: string } }) {
-  debugLog(`Rendering site detail page for ID: ${params.id}`, "SitePage")
+  const [mounted, setMounted] = useState(false)
 
-  // Validate the ID parameter
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   if (!params.id) {
-    debugLog("Missing site ID parameter", "SitePage")
     notFound()
   }
 
   const site = siteConfig.gamblingWebsites.find((site) => site.id === params.id)
 
-  // Handle case where site is not found
   if (!site) {
-    debugLog(`Site not found with ID: ${params.id}`, "SitePage", {
-      availableSites: siteConfig.gamblingWebsites.map((s) => s.id),
-    })
     notFound()
   }
 
-  // Prepare images for the carousel
   const carouselImages = site.images
     ? site.images
     : site.image
       ? [{ src: site.image, alt: site.name }]
       : [{ src: "/placeholder.png", alt: site.name }]
 
-  debugLog(`Found site: ${site.name}`, "SitePage", {
-    hasImages: Boolean(carouselImages.length),
-  })
+  if (!mounted) {
+    return (
+      <div className="space-y-8">
+        <div className="h-6 w-32 bg-zinc-800 rounded animate-pulse"></div>
+        <div className="grid gap-8 md:grid-cols-2">
+          <div className="aspect-video w-full bg-zinc-800 rounded-xl animate-pulse"></div>
+          <div className="space-y-4">
+            <div className="h-10 w-3/4 bg-zinc-800 rounded animate-pulse"></div>
+            <div className="h-4 w-full bg-zinc-800 rounded animate-pulse"></div>
+            <div className="h-4 w-full bg-zinc-800 rounded animate-pulse"></div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-8">

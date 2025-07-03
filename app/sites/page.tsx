@@ -1,13 +1,40 @@
+"use client"
+
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Image } from "@/components/ui/image"
 import { ExternalLink } from "lucide-react"
 import { siteConfig } from "@/config/site"
-import { debugLog } from "@/lib/debug-utils"
 
 export default function SitesPage() {
-  debugLog("Rendering sites listing page", "SitesPage", {
-    sitesCount: siteConfig.gamblingWebsites.length,
-  })
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return (
+      <div className="space-y-8">
+        <div>
+          <div className="h-10 w-64 bg-zinc-800 rounded animate-pulse mb-2"></div>
+          <div className="h-6 w-96 bg-zinc-800 rounded animate-pulse"></div>
+        </div>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden animate-pulse">
+              <div className="h-48 w-full bg-zinc-800"></div>
+              <div className="p-6">
+                <div className="h-6 w-3/4 bg-zinc-800 rounded mb-2"></div>
+                <div className="h-4 w-full bg-zinc-800 rounded mb-4"></div>
+                <div className="h-4 w-1/2 bg-zinc-800 rounded"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-8">
@@ -23,23 +50,17 @@ export default function SitesPage() {
       ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {siteConfig.gamblingWebsites.map((site) => {
-            // Get the image source - either the first image from the array or the main image
-            const imageSrc =
-              site.images && site.images.length > 0 ? site.images[0].src : site.image || "/placeholder.png"
-
-            debugLog(`Rendering site card: ${site.id}`, "SitesPage")
+            const imageSrc = site.images && site.images.length > 0 ? site.images[0].src : site.image
 
             return (
               <div key={site.id} className="bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden">
-                <div className="relative h-48 w-full">
+                <div className="relative h-48 w-full overflow-hidden">
                   <Image
-                    src={imageSrc || "/placeholder.svg"}
+                    src={imageSrc || "/placeholder.png"}
                     alt={site.name}
-                    width={400}
-                    height={240}
-                    className="object-cover w-full h-full"
+                    fill
+                    className="object-cover"
                     fallbackSrc="/placeholder.png"
-                    onImageError={() => debugLog(`Failed to load image for ${site.name}`, "SitesPage")}
                   />
                 </div>
                 <div className="p-6">

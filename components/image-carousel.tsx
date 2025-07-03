@@ -4,7 +4,6 @@ import { useState, useEffect } from "react"
 import { Image } from "@/components/ui/image"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { debugLog } from "@/lib/debug-utils"
 
 interface ImageCarouselProps {
   images: {
@@ -21,20 +20,25 @@ export function ImageCarousel({ images = [], className = "" }: ImageCarouselProp
 
   useEffect(() => {
     setMounted(true)
-    debugLog("ImageCarousel mounted", "ImageCarousel", { imagesCount: images.length })
-  }, [images.length])
+  }, [])
 
-  // Reset index if images change
   useEffect(() => {
-    if (currentIndex >= images.length) {
+    if (currentIndex >= images.length && images.length > 0) {
       setCurrentIndex(0)
-      debugLog("Reset carousel index due to images change", "ImageCarousel")
     }
   }, [images, currentIndex])
 
-  // Handle edge case where no images are provided
+  if (!mounted) {
+    return (
+      <div className={`relative aspect-video w-full overflow-hidden rounded-xl bg-zinc-800 animate-pulse ${className}`}>
+        <div className="flex h-full w-full items-center justify-center">
+          <span className="text-zinc-500">Loading...</span>
+        </div>
+      </div>
+    )
+  }
+
   if (!images || images.length === 0) {
-    debugLog("No images provided to carousel", "ImageCarousel")
     return (
       <div className={`relative aspect-video w-full overflow-hidden rounded-xl ${className}`}>
         <div className="flex h-full w-full items-center justify-center bg-zinc-900">
@@ -45,43 +49,33 @@ export function ImageCarousel({ images = [], className = "" }: ImageCarouselProp
   }
 
   const goToPrevious = () => {
-    debugLog("Navigate to previous image", "ImageCarousel", { from: currentIndex })
     const isFirstImage = currentIndex === 0
     const newIndex = isFirstImage ? images.length - 1 : currentIndex - 1
     setCurrentIndex(newIndex)
   }
 
   const goToNext = () => {
-    debugLog("Navigate to next image", "ImageCarousel", { from: currentIndex })
     const isLastImage = currentIndex === images.length - 1
     const newIndex = isLastImage ? 0 : currentIndex + 1
     setCurrentIndex(newIndex)
   }
 
   const goToSlide = (slideIndex: number) => {
-    debugLog("Navigate to specific slide", "ImageCarousel", { from: currentIndex, to: slideIndex })
     setCurrentIndex(slideIndex)
   }
 
-  if (!mounted) {
-    return null // Prevent hydration issues
-  }
-
-  // If there's only one image, don't render carousel controls
   if (images.length <= 1) {
     return (
       <div className={`relative aspect-video w-full overflow-hidden rounded-xl ${className}`}>
         {images.length === 1 && (
           <div className="relative h-full w-full">
             <Image
-              src={images[0].src || "/placeholder.svg"}
+              src={images[0].src || "/placeholder.png"}
               alt={images[0].alt || "Image"}
-              width={800}
-              height={450}
-              className="object-cover w-full h-full"
+              fill
+              className="object-cover"
               fallbackSrc="/placeholder.png"
               priority
-              onImageError={() => debugLog("Failed to load single carousel image", "ImageCarousel")}
             />
             {images[0].caption && (
               <div className="absolute bottom-0 left-0 right-0 bg-black/60 p-2 text-center text-sm text-white">
@@ -94,24 +88,17 @@ export function ImageCarousel({ images = [], className = "" }: ImageCarouselProp
     )
   }
 
-  // Ensure currentIndex is valid
   const safeIndex = Math.max(0, Math.min(currentIndex, images.length - 1))
-  if (safeIndex !== currentIndex) {
-    debugLog("Corrected invalid carousel index", "ImageCarousel", { from: currentIndex, to: safeIndex })
-    setCurrentIndex(safeIndex)
-  }
 
   return (
     <div className={`relative aspect-video w-full overflow-hidden rounded-xl ${className}`}>
       <div className="relative h-full w-full">
         <Image
-          src={images[safeIndex].src || "/placeholder.svg"}
+          src={images[safeIndex].src || "/placeholder.png"}
           alt={images[safeIndex].alt || "Image"}
-          width={800}
-          height={450}
-          className="object-cover w-full h-full"
+          fill
+          className="object-cover"
           fallbackSrc="/placeholder.png"
-          onImageError={() => debugLog("Failed to load carousel image", "ImageCarousel", { index: safeIndex })}
         />
         {images[safeIndex].caption && (
           <div className="absolute bottom-0 left-0 right-0 bg-black/60 p-2 text-center text-sm text-white">
@@ -120,7 +107,6 @@ export function ImageCarousel({ images = [], className = "" }: ImageCarouselProp
         )}
       </div>
 
-      {/* Left Arrow */}
       <div className="absolute left-2 top-1/2 -translate-y-1/2">
         <Button
           variant="outline"
@@ -133,7 +119,6 @@ export function ImageCarousel({ images = [], className = "" }: ImageCarouselProp
         </Button>
       </div>
 
-      {/* Right Arrow */}
       <div className="absolute right-2 top-1/2 -translate-y-1/2">
         <Button
           variant="outline"
@@ -146,7 +131,6 @@ export function ImageCarousel({ images = [], className = "" }: ImageCarouselProp
         </Button>
       </div>
 
-      {/* Dots */}
       <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 transform gap-1">
         {images.map((_, slideIndex) => (
           <button

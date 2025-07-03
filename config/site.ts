@@ -70,7 +70,7 @@ export const siteConfig: SiteConfig = {
       description: "Popular social casino with slots, blackjack, and more.",
       fullDescription:
         "Chumba Casino is one of the most popular social casinos available to US players. They offer a wide variety of slots, table games, and jackpot opportunities.",
-      image: "/placeholder.png",
+      image: "/placeholder.png", // Using local placeholder instead of external URL
       url: "https://example.com/chumba",
       dailyCoins: "2,000",
       lastUpdated: "May 5, 2025",

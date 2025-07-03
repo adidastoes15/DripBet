@@ -1,34 +1,38 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Image } from "@/components/ui/image"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ExternalLink } from "lucide-react"
 import { siteConfig } from "@/config/site"
-import { debugLog } from "@/lib/debug-utils"
 
 export default function FeaturedSites() {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
-    debugLog("FeaturedSites component mounted", "FeaturedSites", {
-      sitesCount: siteConfig.gamblingWebsites.length,
-    })
   }, [])
 
   // Get the first 3 sites as featured
   const featuredSites = siteConfig.gamblingWebsites.slice(0, 3)
 
-  // Log if we don't have enough sites
-  if (featuredSites.length === 0) {
-    debugLog("No featured sites available", "FeaturedSites")
-  }
-
   if (!mounted) {
-    return null // Prevent hydration issues
+    return (
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {[...Array(3)].map((_, i) => (
+          <div key={i} className="bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden animate-pulse">
+            <div className="h-48 w-full bg-zinc-800"></div>
+            <div className="p-6">
+              <div className="h-6 w-3/4 bg-zinc-800 rounded mb-2"></div>
+              <div className="h-4 w-full bg-zinc-800 rounded mb-4"></div>
+              <div className="h-4 w-1/2 bg-zinc-800 rounded"></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    )
   }
 
   return (
@@ -39,23 +43,18 @@ export default function FeaturedSites() {
         </div>
       ) : (
         featuredSites.map((site) => {
-          // Get the image source - either the first image from the array or the main image
-          const imageSrc = site.images && site.images.length > 0 ? site.images[0].src : site.image || "/placeholder.png"
-
-          debugLog(`Rendering featured site: ${site.id}`, "FeaturedSites")
+          const imageSrc = site.images && site.images.length > 0 ? site.images[0].src : site.image
 
           return (
             <Card key={site.id} className="bg-zinc-900 border-zinc-800 overflow-hidden">
               <CardHeader className="p-0">
-                <div className="relative h-48 w-full">
+                <div className="relative h-48 w-full overflow-hidden">
                   <Image
-                    src={imageSrc || "/placeholder.svg"}
+                    src={imageSrc || "/placeholder.png"}
                     alt={site.name}
-                    width={400}
-                    height={240}
-                    className="object-cover w-full h-full"
+                    fill
+                    className="object-cover"
                     fallbackSrc="/placeholder.png"
-                    onImageError={() => debugLog(`Failed to load image for ${site.name}`, "FeaturedSites")}
                   />
                 </div>
               </CardHeader>
@@ -69,7 +68,10 @@ export default function FeaturedSites() {
               </CardContent>
               <CardFooter className="flex gap-2 p-6 pt-0">
                 <Link href={`/sites/${site.id}`} className="flex-1">
-                  <Button variant="outline" className="w-full border-green-500 text-green-500 hover:bg-green-500/10">
+                  <Button
+                    variant="outline"
+                    className="w-full border-green-500 text-green-500 hover:bg-green-500/10 bg-transparent"
+                  >
                     Details
                   </Button>
                 </Link>
